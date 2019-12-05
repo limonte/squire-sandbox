@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Squire Sandbox</title>
+  <script src="squire-raw.js"></script>
+  <style>
+    #squire {
+      border: 2px dashed #999;
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="squire"></div>
+  <script>
+    const editor_div = document.getElementById('squire')
+    const editor = new Squire(editor_div)
+
+    editor_div.addEventListener('drop', (e) => {
+      console.log(e)
+    })
+
+    editor.addEventListener('drop', (e) => {
+      console.log(e)
+    })
+  </script>
+</body>
+</html>
