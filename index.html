@@ -17,12 +17,13 @@
     const editor_div = document.getElementById('squire')
     const editor = new Squire(editor_div)
 
-    editor_div.addEventListener('drop', (e) => {
-      console.log(e)
+    editor.addEventListener('dragover', (e) => {
+      e.preventDefault()
     })
 
     editor.addEventListener('drop', (e) => {
       console.log(e)
+      console.log(e.dataTransfer.files[0])
     })
   </script>
 </body>
