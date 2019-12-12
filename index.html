@@ -8,29 +8,14 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+  <div id="toolbar">
+    <button id="remove-formatting">Remove Formatting</button>
+    <button id="disable-shortcuts">Disable Shortcuts</button>
+    <button id="enable-shortcuts">Enable Shortcuts</button>
+  </div>
   <div id="squire"></div>
-  <br>
   <textarea id="editor-html" readonly></textarea>
-  <script>
-    const editor_div = document.getElementById('squire')
-    const editor = new Squire(editor_div)
 
-    editor.addEventListener('input', (e) => {
-      $('#editor-html').val(editor.getHTML())
-    })
-
-    editor.addEventListener('dragover', (e) => {
-      e.preventDefault()
-    })
-
-    editor.addEventListener('drop', (e) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        editor.insertImage(e.target.result)
-      }
-      reader.readAsDataURL(e.dataTransfer.files[0])
-    })
-
-  </script>
+  <script src="./app.js"></script>
 </body>
 </html>
