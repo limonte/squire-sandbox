@@ -44,11 +44,17 @@ editor.addEventListener('dragover', (e) => {
   e.preventDefault()
 })
 editor.addEventListener('drop', (e) => {
+  if (!e.dataTransfer.files.length) {
+    return
+  }
+  const file = e.dataTransfer.files[0]
   const reader = new FileReader();
   reader.onload = (e) => {
-    editor.insertImage(e.target.result)
+    editor.insertImage(e.target.result, {
+      name: file.name
+    })
   }
-  reader.readAsDataURL(e.dataTransfer.files[0])
+  reader.readAsDataURL(file)
 })
 
 // SHORTCUTS
