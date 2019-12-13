@@ -12,9 +12,14 @@ html, body {
 
 #squire {
   border: 2px dashed #999;
-  width: 100%;
+  width: 600px;
   height: 45vh;
   margin-bottom: 1em;
+  overflow: auto;
+}
+
+#squire img {
+  max-width: 100%;
 }
 
 #editor-html {
