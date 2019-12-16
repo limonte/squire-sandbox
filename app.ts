@@ -1,8 +1,10 @@
+import $ from 'jquery'
+
 const editor_div = document.getElementById('squire')
-const editor = new Squire(editor_div)
+const editor = new window.Squire(editor_div as HTMLElement)
 
 // SHOW SOURCE IN TEXTAREA
-editor.addEventListener('input', (e) => {
+editor.addEventListener('input', () => {
   $('#editor-html').val(editor.getHTML())
 })
 // SET DEMO HTML
@@ -40,17 +42,17 @@ $('#enable-shortcuts').on('click', () => { richTextMode = true; editor.focus(); 
 
 // PASTING IMAGES
 // this is needed for 'drop' event to fire
-editor.addEventListener('dragover', (e) => {
+editor.addEventListener('dragover', (e: DragEvent) => {
   e.preventDefault()
 })
-editor.addEventListener('drop', (e) => {
-  if (!e.dataTransfer.files.length) {
+editor.addEventListener('drop', (e: DragEvent) => {
+  if (!e.dataTransfer?.files.length) {
     return
   }
   const file = e.dataTransfer.files[0]
   const reader = new FileReader();
-  reader.onload = (e) => {
-    editor.insertImage(e.target.result, {
+  reader.onload = () => {
+    editor.insertImage(reader.result as ArrayBuffer, {
       name: file.name
     })
   }
@@ -58,7 +60,7 @@ editor.addEventListener('drop', (e) => {
 })
 
 // SHORTCUTS
-const mapKeyToFormat = (tag) => {
+const mapKeyToFormat = (tag: string) => {
   return (self, event) => {
     event.preventDefault();
     if (!richTextMode) {

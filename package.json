@@ -1,0 +1,22 @@
+{
+  "name": "squire-sandbox",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:limonte/squire-sandbox.git",
+  "author": "Limon Monte <limon.monte@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.31",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server"
+  }
+}
