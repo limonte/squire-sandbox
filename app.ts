@@ -1,7 +1,7 @@
 import $ from 'jquery'
 
-const editor_div = document.getElementById('squire')
-const editor = new window.Squire(editor_div as HTMLElement)
+const editorRoot = document.getElementById('squire')
+const editor = new window.Squire(editorRoot as HTMLElement)
 
 // SHOW SOURCE IN TEXTAREA
 editor.addEventListener('input', () => {
@@ -37,8 +37,8 @@ const ctrlKey = isMac ? 'meta-' : 'ctrl-'
 
 let richTextMode = true
 // TOGGLE SHORTCUTS
-$('#disable-shortcuts').on('click', () => { richTextMode = false; editor.focus(); })
-$('#enable-shortcuts').on('click', () => { richTextMode = true; editor.focus(); })
+$('#disable-shortcuts').on('click', () => { richTextMode = false; editor.focus() })
+$('#enable-shortcuts').on('click', () => { richTextMode = true; editor.focus() })
 
 // PASTING IMAGES
 // this is needed for 'drop' event to fire
@@ -50,7 +50,7 @@ editor.addEventListener('drop', (e: DragEvent) => {
     return
   }
   const file = e.dataTransfer.files[0]
-  const reader = new FileReader();
+  const reader = new FileReader()
   reader.onload = () => {
     editor.insertImage(reader.result as ArrayBuffer, {
       name: file.name
@@ -62,17 +62,17 @@ editor.addEventListener('drop', (e: DragEvent) => {
 // SHORTCUTS
 const mapKeyToFormat = (tag: string) => {
   return (self, event) => {
-    event.preventDefault();
+    event.preventDefault()
     if (!richTextMode) {
       return
     }
-    const range = self.getSelection();
-    if (self.hasFormat( tag, null, range)) {
-      self.changeFormat( null, { tag: tag }, range );
+    const range = self.getSelection()
+    if (self.hasFormat(tag, null, range)) {
+      self.changeFormat(null, { tag: tag }, range)
     } else {
-      self.changeFormat( { tag: tag }, null, range );
+      self.changeFormat({ tag: tag }, null, range)
     }
-  };
+  }
 }
 const noop = (self, event) => {
   event.preventDefault()
@@ -90,4 +90,4 @@ editor.setKeyHandler(ctrlKey + ']', noop) // default is 'increaseQuoteLevel'
 editor.setKeyHandler(ctrlKey + 'd', noop) // default is 'toggleCode'
 
 // REMOVE FORMATTING
-$('#remove-formatting').on('click', () => { editor.removeAllFormatting(); })
+$('#remove-formatting').on('click', () => { editor.removeAllFormatting() })

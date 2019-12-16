@@ -1,0 +1,6 @@
+{
+  "extends": "@sweetalert2/eslint-config",
+  "rules": {
+    "prefer-template": 0
+  }
+}
