@@ -8,6 +8,10 @@ module.exports = (env, argv) => {
 
     devtool: 'inline-source-map',
 
+    resolve: {
+      extensions: ['.ts', '.js']
+    },
+
     module: {
       rules: [
         {
@@ -19,7 +23,8 @@ module.exports = (env, argv) => {
     },
 
     devServer: {
-      writeToDisk: true
+      writeToDisk: true,
+      open: true,
     }
   }
 }
