@@ -5,29 +5,54 @@ import { WillPasteEvent, SquireEditor } from './squire'
 const editorRoot = document.getElementById('squire') as HTMLElement
 const editor = new window.Squire(editorRoot)
 
+// SHOW SOURCE IN TEXTAREA
 const copySourceToTextarea = () => {
   $('#editor-html').val(editor.getHTML())
 }
-// SHOW SOURCE IN TEXTAREA
 editor.addEventListener('input', copySourceToTextarea)
 
+// RTL
+const checkRTL = (e: KeyboardEvent) => {
+  if (e.key.length > 1) {
+    return // Enter, Space, etc.
+  }
+  const container = editor.getSelection().commonAncestorContainer as HTMLElement
+  if (container && container.textContent?.length === 0) {
+    // ranges are taken from https://stackoverflow.com/a/19143254
+    const ltrChars = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF' + '\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF'
+    const rtlChars = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC'
+    const ltrDirCheck = new RegExp('[' + ltrChars + ']')
+    const rtlDirCheck = new RegExp('[' + rtlChars + ']')
+    // Switch to LTR
+    if (ltrDirCheck.test(e.key)) {
+      container.setAttribute('dir', 'ltr')
+    // Switch to RTL
+    } else if (rtlDirCheck.test(e.key)) {
+      container.setAttribute('dir', 'rtl')
+    } else {
+      // keep the previous direction for other characters and digits
+    }
+  }
+}
+editor.addEventListener('keydown', checkRTL)
+
 // SET DEMO HTML
-editor.setHTML(`
-<h1>Installation</h1>
-<ol>
-  <li>Download the source from <a href="https://github.com/neilj/Squire">neilj/Squire</a></li>
+// editor.setHTML(`
+// <h1>Installation</h1>
+// <ol>
+//   <li>Download the source from <a href="https://github.com/neilj/Squire">neilj/Squire</a></li>
 
-  <li>Copy the contents of the <code>build/</code> directory onto your server.</li>
+//   <li>Copy the contents of the <code>build/</code> directory onto your server.</li>
 
-  <li>Edit the <code>&lt;style&gt;</code> block in <u>document.html</u> to add the default styles you <b>would</b> <i>like the editor</i> to use (or link  to an external stylesheet).</li>
+//   <li>Edit the <code>&lt;style&gt;</code> block in <u>document.html</u> to add the default styles you <b>would</b> <i>like the editor</i> to use (or link  to an external stylesheet).</li>
 
-  <li>In your application, instead of a <code>&lt;textarea&gt;</code>, use an <code>&lt;iframe src="path/to/document.html"&gt;</code>.</li>
+//   <li>In your application, instead of a <code>&lt;textarea&gt;</code>, use an <code>&lt;iframe src="path/to/document.html"&gt;</code>.</li>
 
-  <li>In your JS, attach an event listener to the <code>load</code> event of the iframe. When this fires you can grab a reference to the editor object   through <code>iframe.contentWindow.editor</code>.</li>
+//   <li>In your JS, attach an event listener to the <code>load</code> event of the iframe. When this fires you can grab a reference to the editor object   through <code>iframe.contentWindow.editor</code>.</li>
 
-  <li>Use the API below with the <code>editor</code> object to set and get data and integrate with your application or framework.</li>
-</ol>
-`)
+//   <li>Use the API below with the <code>editor</code> object to set and get data and integrate with your application or framework.</li>
+// </ol>
+// `)
 copySourceToTextarea()
 
 const ua = navigator.userAgent
