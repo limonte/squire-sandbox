@@ -13,7 +13,7 @@
     "@sweetalert2/eslint-config": "^1.0.1",
     "@types/html-to-text": "^5.1.0",
     "@types/jquery": "^3.3.31",
-    "eslint": "^6.7.2",
+    "eslint": "^7.0.0",
     "ts-loader": "^7.0.0",
     "typescript": "^3.7.3",
     "webpack": "^4.41.3",
