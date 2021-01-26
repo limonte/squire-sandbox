@@ -134,3 +134,8 @@ editor.setKeyHandler(ctrlKey + 'shift-9', noop) // default is 'makeOrderedList'
 editor.setKeyHandler(ctrlKey + '[', noop) // default is 'decreaseQuoteLevel'
 editor.setKeyHandler(ctrlKey + ']', noop) // default is 'increaseQuoteLevel'
 editor.setKeyHandler(ctrlKey + 'd', noop) // default is 'toggleCode'
+
+// REMOVE FORMATTTING
+document.querySelector('#remove-formatting')?.addEventListener('click', () => {
+  editor.removeAllFormatting()
+})
